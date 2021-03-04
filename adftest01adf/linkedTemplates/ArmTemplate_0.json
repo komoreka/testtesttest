@@ -584,7 +584,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"notebookPath": "/Users/akomorek88/03-Data-Ingestion-Via-ADF/includes/Databricks-Data-Transformations",
+							"notebookPath": "/Users/akomorek88@outlook.com/03-Data-Ingestion-Via-ADF/03-Data-Transformation",
 							"baseParameters": {
 								"accountName": "adftest01blob",
 								"accountKey": "FxVnoeFRimIyz76uqkjYIE3Bmf+xkDYC6mFkU3ayjblMCFJ/fff5ty2QwtYmPcJQCp49RGkz4w1yetUINIwPQA==",
