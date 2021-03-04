@@ -1,0 +1,110 @@
+{
+	"name": "SourceDataset_t62",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "book_listing.csv",
+				"folderPath": "input/books",
+				"container": "adftutorial"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Book Id",
+				"type": "String"
+			},
+			{
+				"name": "Title",
+				"type": "String"
+			},
+			{
+				"name": "Author",
+				"type": "String"
+			},
+			{
+				"name": "Author l-f",
+				"type": "String"
+			},
+			{
+				"name": "Additional Authors",
+				"type": "String"
+			},
+			{
+				"name": "ISBN",
+				"type": "String"
+			},
+			{
+				"name": "ISBN13",
+				"type": "String"
+			},
+			{
+				"name": "My Rating",
+				"type": "String"
+			},
+			{
+				"name": "Average Rating",
+				"type": "String"
+			},
+			{
+				"name": "Publisher",
+				"type": "String"
+			},
+			{
+				"name": "Binding",
+				"type": "String"
+			},
+			{
+				"name": "Number of Pages",
+				"type": "String"
+			},
+			{
+				"name": "Year Published",
+				"type": "String"
+			},
+			{
+				"name": "Original Publication Year",
+				"type": "String"
+			},
+			{
+				"name": "Date Read",
+				"type": "String"
+			},
+			{
+				"name": "Date Added",
+				"type": "String"
+			},
+			{
+				"name": "Bookshelves",
+				"type": "String"
+			},
+			{
+				"name": "Bookshelves with positions",
+				"type": "String"
+			},
+			{
+				"name": "Exclusive Shelf",
+				"type": "String"
+			},
+			{
+				"name": "My Review",
+				"type": "String"
+			},
+			{
+				"name": "Read Count",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
