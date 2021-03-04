@@ -271,8 +271,27 @@
 					"referenceName": "DBtest1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": []
 			}
 		],
+		"parameters": {
+			"EmailTo": {
+				"type": "string",
+				"defaultValue": "twojemail@jest.cool"
+			}
+		},
 		"annotations": []
 	}
 }
