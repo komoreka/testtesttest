@@ -255,7 +255,14 @@
 			{
 				"name": "Validate Import Rows",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "ImportCSV",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -273,9 +280,16 @@
 				}
 			},
 			{
-				"name": "Web1",
+				"name": "Send Failure Notification",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Validate Import Rows",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -283,7 +297,50 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"DataFactoryName": "@{pipeline().DataFactory}",
+						"PipelineName": "@{pipeline().Pipeline}",
+						"ErrorMessage": "@{activity('Validate Import Rows').error.message}",
+						"EmailTo": "@{pipeline().parameters.EmailTo}"
+					}
+				}
+			},
+			{
+				"name": "Send Success Notification",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Validate Import Rows",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a",
+					"method": "POST",
+					"body": {
+						"DataFactoryName": "@{pipeline().DataFactory}",
+						"PipelineName": "@{pipeline().Pipeline}",
+						"ErrorMessage": "",
+						"EmailTo": "@{pipeline().parameters.EmailTo}"
+					}
+				}
 			}
 		],
 		"parameters": {
