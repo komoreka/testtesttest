@@ -14,6 +14,9 @@
 		"DestinationContainer_connectionString": {
 			"value": ""
 		},
+		"DBtest1_connectionString": {
+			"value": ""
+		},
 		"PublicDataset_sasUri": {
 			"value": ""
 		}
