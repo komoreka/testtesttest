@@ -299,7 +299,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a",
+					"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8XGLNkTPKhMInp4BxsezrzDj3rKasGBb4aLtO_NnKrE",
 					"method": "POST",
 					"headers": {
 						"Content-Type": "application/json"
@@ -334,6 +334,9 @@
 				"typeProperties": {
 					"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a",
 					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
 					"body": {
 						"DataFactoryName": "@{pipeline().DataFactory}",
 						"PipelineName": "@{pipeline().Pipeline}",
