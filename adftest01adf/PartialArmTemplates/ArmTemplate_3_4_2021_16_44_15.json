@@ -1,0 +1,376 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adftest01adf"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ImportCSV",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "ProductID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductID",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductNumber",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Color",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Color",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StandardCost",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "StandardCost",
+											"type": "Decimal",
+											"physicalType": "money",
+											"scale": 4,
+											"precision": 19
+										}
+									},
+									{
+										"source": {
+											"name": "ListPrice",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ListPrice",
+											"type": "Decimal",
+											"physicalType": "money",
+											"scale": 4,
+											"precision": 19
+										}
+									},
+									{
+										"source": {
+											"name": "Size",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Size",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Weight",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Weight",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 8
+										}
+									},
+									{
+										"source": {
+											"name": "ProductCategoryID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductCategoryID",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductModelID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProductModelID",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "SellStartDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "SellStartDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "SellEndDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "SellEndDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "DiscontinuedDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DiscontinuedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "ThumbNailPhoto",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ThumbNailPhoto",
+											"type": "Byte[]",
+											"physicalType": "varbinary"
+										}
+									},
+									{
+										"source": {
+											"name": "ThumbnailPhotoFileName",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ThumbnailPhotoFileName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "rowguid",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "rowguid",
+											"type": "Guid",
+											"physicalType": "uniqueidentifier"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ProductsCSV",
+								"type": "DatasetReference"
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ProductStaging",
+								"type": "DatasetReference"
+							}
+						]
+					},
+					{
+						"name": "Validate Import Rows",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "ImportCSV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[SalesLT].[usp_CheckProductStaging]"
+						},
+						"linkedServiceName": {
+							"referenceName": "DBtest1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Send Failure Notification",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Validate Import Rows",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8XGLNkTPKhMInp4BxsezrzDj3rKasGBb4aLtO_NnKrE",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"DataFactoryName": "@{pipeline().DataFactory}",
+								"PipelineName": "@{pipeline().Pipeline}",
+								"ErrorMessage": "@{activity('Validate Import Rows').error.message}",
+								"EmailTo": "@{pipeline().parameters.EmailTo}"
+							}
+						}
+					},
+					{
+						"name": "Send Success Notification",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Validate Import Rows",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"DataFactoryName": "@{pipeline().DataFactory}",
+								"PipelineName": "@{pipeline().Pipeline}",
+								"ErrorMessage": "",
+								"EmailTo": "@{pipeline().parameters.EmailTo}"
+							}
+						}
+					}
+				],
+				"parameters": {
+					"EmailTo": {
+						"type": "string",
+						"defaultValue": "twojemail@jest.cool"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		}
+	]
+}
