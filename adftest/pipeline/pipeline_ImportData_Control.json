@@ -44,6 +44,48 @@
 						"value": "@equals(activity('Lookup Staging Row Count').output.firstRow.RowCount, 0)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Truncate Staging Table",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[SalesLT].[usp_TruncateProductStaging]"
+							},
+							"linkedServiceName": {
+								"referenceName": "DBtest1",
+								"type": "LinkedServiceReference"
+							}
+						},
+						{
+							"name": "Import Data",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Truncate Staging Table",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "pipeline_ImportData",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Import Data on True",
