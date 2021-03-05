@@ -19,6 +19,15 @@
 		},
 		"PublicDataset_sasUri": {
 			"value": ""
+		},
+		"IntegrationRuntimeSSIS1_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "adftest02.database.windows.net"
+		},
+		"IntegrationRuntimeSSIS1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "komorek88"
+		},
+		"IntegrationRuntimeSSIS1_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
 		}
 	}
 }
