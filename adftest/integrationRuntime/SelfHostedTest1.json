@@ -1,0 +1,6 @@
+{
+	"name": "SelfHostedTest1",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
