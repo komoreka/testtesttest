@@ -1306,7 +1306,9 @@
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
-										"parameters": {}
+										"parameters": {
+											"EmailTo": "twojemail@jest.cool"
+										}
 									}
 								}
 							]
