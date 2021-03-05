@@ -97,7 +97,10 @@
 									"referenceName": "pipeline_ImportData",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"EmailTo": "twojemail@jest.cool"
+								}
 							}
 						}
 					]
