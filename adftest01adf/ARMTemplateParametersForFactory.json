@@ -11,10 +11,10 @@
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
-		"DestinationContainer_connectionString": {
+		"DBtest1_connectionString": {
 			"value": ""
 		},
-		"DBtest1_connectionString": {
+		"DestinationContainer_connectionString": {
 			"value": ""
 		},
 		"PublicDataset_sasUri": {
