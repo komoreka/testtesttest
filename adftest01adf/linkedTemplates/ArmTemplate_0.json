@@ -646,752 +646,368 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CopyBooksListing')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/booksCSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
-					{
-						"name": "Copy_t62",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "adftutorial/input/books/book_listing.csv"
-							},
-							{
-								"name": "Destination",
-								"value": "adftutorial/output/booklist/book_listing.csv"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings",
-									"skipLineCount": 0
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"validateDataConsistency": false
-						},
-						"inputs": [
-							{
-								"referenceName": "SourceDataset_t62",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DestinationDataset_t62",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": [],
-				"lastPublishTime": "2021-03-04T10:41:30Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_t62')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_t62')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopyFromBlobToBlob",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "InputDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "OutputDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": [],
-				"lastPublishTime": "2021-03-03T14:57:27Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/InputDataset')]",
-				"[concat(variables('factoryId'), '/datasets/OutputDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LabPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy_s76",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "training/crime-data-2016/"
-							},
-							{
-								"name": "Destination",
-								"value": "dwtemp/03.02/"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "BinarySource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*"
-								},
-								"formatSettings": {
-									"type": "BinaryReadSettings"
-								}
-							},
-							"sink": {
-								"type": "BinarySink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings",
-									"copyBehavior": "PreserveHierarchy"
-								}
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"skipErrorFile": {
-								"fileMissing": true
-							},
-							"validateDataConsistency": false
-						},
-						"inputs": [
-							{
-								"referenceName": "SourceDataset_s76",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DestinationDataset_s76",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "LabNotebook",
-						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "Copy_s76",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"notebookPath": "/Users/akomorek88@outlook.com/03-Data-Ingestion-Via-ADF/includes/Databricks-Data-Transformations",
-							"baseParameters": {
-								"accountName": "adftest01blob",
-								"accountKey": "FxVnoeFRimIyz76uqkjYIE3Bmf+xkDYC6mFkU3ayjblMCFJ/fff5ty2QwtYmPcJQCp49RGkz4w1yetUINIwPQA==",
-								"containerName": "dwtemp"
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "AzureDatabricks",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_s76')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_s76')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricks')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline_ImportData')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ImportCSV",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink"
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ProductID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductNumber",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductNumber",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Color",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Color",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "StandardCost",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "StandardCost",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										}
-									},
-									{
-										"source": {
-											"name": "ListPrice",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ListPrice",
-											"type": "Decimal",
-											"physicalType": "money",
-											"scale": 4,
-											"precision": 19
-										}
-									},
-									{
-										"source": {
-											"name": "Size",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Size",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Weight",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Weight",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 2,
-											"precision": 8
-										}
-									},
-									{
-										"source": {
-											"name": "ProductCategoryID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductCategoryID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductModelID",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductModelID",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "SellStartDate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SellStartDate",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "SellEndDate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SellEndDate",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "DiscontinuedDate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DiscontinuedDate",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "ThumbNailPhoto",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ThumbNailPhoto",
-											"type": "Byte[]",
-											"physicalType": "varbinary"
-										}
-									},
-									{
-										"source": {
-											"name": "ThumbnailPhotoFileName",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ThumbnailPhotoFileName",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "rowguid",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "rowguid",
-											"type": "Guid",
-											"physicalType": "uniqueidentifier"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ProductsCSV",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ProductStaging",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "Validate Import Rows",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "ImportCSV",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[SalesLT].[usp_CheckProductStaging]"
-						},
-						"linkedServiceName": {
-							"referenceName": "DBtest1",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Send Failure Notification",
-						"type": "WebActivity",
-						"dependsOn": [
-							{
-								"activity": "Validate Import Rows",
-								"dependencyConditions": [
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8XGLNkTPKhMInp4BxsezrzDj3rKasGBb4aLtO_NnKrE",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/json"
-							},
-							"body": {
-								"DataFactoryName": "@{pipeline().DataFactory}",
-								"PipelineName": "@{pipeline().Pipeline}",
-								"ErrorMessage": "@{activity('Validate Import Rows').error.message}",
-								"EmailTo": "@{pipeline().parameters.EmailTo}"
-							}
-						}
-					},
-					{
-						"name": "Send Success Notification",
-						"type": "WebActivity",
-						"dependsOn": [
-							{
-								"activity": "Validate Import Rows",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://prod-159.westeurope.logic.azure.com:443/workflows/0202345c75b84db68c7f3c190761d03a/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8XGLNkTPKhMInp4BxsezrzDj3rKasGBb4aLtO_NnKrE",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/json"
-							},
-							"body": {
-								"DataFactoryName": "@{pipeline().DataFactory}",
-								"PipelineName": "@{pipeline().Pipeline}",
-								"ErrorMessage": "",
-								"EmailTo": "@{pipeline().parameters.EmailTo}"
-							}
-						}
-					}
-				],
-				"parameters": {
-					"EmailTo": {
-						"type": "string",
-						"defaultValue": "twojemail@jest.cool"
-					}
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
 				},
-				"annotations": []
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "books.csv",
+						"folderPath": "originals",
+						"container": "module5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ProductsCSV')]",
-				"[concat(variables('factoryId'), '/datasets/ProductStaging')]",
-				"[concat(variables('factoryId'), '/linkedServices/DBtest1')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline_ImportData_Control')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/KeikosHistory')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Keikos_History.csv",
+						"folderPath": "originals",
+						"container": "module5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
 					{
-						"name": "Lookup Staging Row Count",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderStoredProcedureName": "[[SalesLT].[usp_GetRowCountProductStaging]",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ProductStaging",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						}
+						"type": "String"
 					},
 					{
-						"name": "Actions on Staging Row Count",
-						"type": "IfCondition",
-						"dependsOn": [
-							{
-								"activity": "Lookup Staging Row Count",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"expression": {
-								"value": "@equals(activity('Lookup Staging Row Count').output.firstRow.RowCount, 0)",
-								"type": "Expression"
-							},
-							"ifFalseActivities": [
-								{
-									"name": "Truncate Staging Table",
-									"type": "SqlServerStoredProcedure",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"storedProcedureName": "[[SalesLT].[usp_TruncateProductStaging]"
-									},
-									"linkedServiceName": {
-										"referenceName": "DBtest1",
-										"type": "LinkedServiceReference"
-									}
-								},
-								{
-									"name": "Import Data",
-									"type": "ExecutePipeline",
-									"dependsOn": [
-										{
-											"activity": "Truncate Staging Table",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "pipeline_ImportData",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {}
-									}
-								}
-							],
-							"ifTrueActivities": [
-								{
-									"name": "Import Data on True",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "pipeline_ImportData",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"EmailTo": "twojemail@jest.cool"
-										}
-									}
-								}
-							]
-						}
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
 					}
-				],
-				"annotations": []
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ProductStaging')]",
-				"[concat(variables('factoryId'), '/linkedServices/DBtest1')]",
-				"[concat(variables('factoryId'), '/pipelines/pipeline_ImportData')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MinervasHistory')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Minervas_History.csv",
+						"folderPath": "originals",
+						"container": "module5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SvensHistory')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Svens_History.csv",
+						"folderPath": "originals",
+						"container": "module5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "Private_Notes",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TrixiesHistory')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Trixies_History.csv",
+						"folderPath": "originals",
+						"container": "module5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Private_Notes",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
 			]
 		}
 	]
